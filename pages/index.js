@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default  async function Home({myChart}) {
+export default function Home() {
 
   // const url = `https://quickchart.io/chart?c={type:'bar',data:{labels:[2012,2013,2014,2015, 2016],datasets:[{label:'Users',data:[120,60,50,180,120]}]}}`;
 
@@ -55,7 +55,7 @@ export default  async function Home({myChart}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <div>{myChart}</div>
+     
       <Currency/>
 
       {/* <button
@@ -73,23 +73,23 @@ export default  async function Home({myChart}) {
 }
 
 
-export async function getStaticProps() {
-  const QuickChart = require('quickchart-js');
+// export async function getStaticProps() {
+//   const QuickChart = require('quickchart-js');
 
-  const myChart = new QuickChart();
+//   const myChart = new QuickChart();
 
-  myChart.setConfig({
-    type:"bar",
-    data:{ 
-      labels: ['Hello world', 'Foo bar'], 
-      datasets: [{ label: 'Foo', data: [1, 2] }]
-    }
-  })
+//   myChart.setConfig({
+//     type:"bar",
+//     data:{ 
+//       labels: ['Hello world', 'Foo bar'], 
+//       datasets: [{ label: 'Foo', data: [1, 2] }]
+//     }
+//   })
 
-  console.log(myChart.getUrl())
-  return {
-    props: {
-      myChart
-    }
-  }
-}
+//   console.log(myChart.getUrl())
+//   return {
+//     props: {
+//       myChart
+//     }
+//   }
+// }
