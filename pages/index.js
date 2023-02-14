@@ -4,48 +4,56 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Currency from '@/components/currency'
 import axios from 'axios'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import Form from '@/components/form'
+import { Pie } from 'react-chartjs-2'
+import Time from '@/components/time'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  // const url = `https://quickchart.io/chart?c={type:'bar',data:{labels:[2012,2013,2014,2015, 2016],datasets:[{label:'Users',data:[120,60,50,180,120]}]}}`;
+const [errorMsg, setErrorMsg] = useState()
+const [data, setData] = useState([]);
+const [item, setItem] = useState([]);
+const [value, setValue] = useState([]);
+const [test, setTest] = useState('');
 
+useEffect(() => {
+  console.log(item)
+    const data = {
+    labels: item,
+    datasets: [{
+      label: 'items',
+      data: value,
+      backgroundColor: ['red', 'blue', 'green', 'yellow']
+    }]
+  }
+    setData(data)
+}, [item, value]);
 
-  
-  // qc.setConfig({
-  //   type: 'bar',
-  //   data: { labels: ['Hello world', 'Foo bar'], datasets: [{ label: 'Foo', data: [1, 2] }] },
-  // });
-  // qc.setWidth(500).setHeight(300).setBackgroundColor('transparent');
+  const clicked = (e) => {
+    e.preventDefault();   // → doesn’t need to refresh 
+    console.log(e.target[0].value)   // → first input ‘s value
+    if(item.length == value.length) {
+      setErrorMsg('choose an item');
+    } else {
+      setErrorMsg('')
+      convertCurrency(e.target[0].value)  //  → pur that value into currency function
+    }
+  }
 
-  // console.log(qc.getUrl());
-  
-  // const url = await qc.getShortUrl();
-  // console.log(url);
-  // const image = async(qc.toBinary());
-
-  // const makeChart = () => {
-  //   axios.get(url)
-  //   .then((response) => {
-  //     console.clear();
-  //     console.log(response);
-  //   }).catch(err => {
-  //     console.log(err);
-  //   })
-  // }
-
-  // const data = [
-  //   { year: 2010, count: 10 },
-  //   { year: 2011, count: 20 },
-  //   { year: 2012, count: 15 },
-  //   { year: 2013, count: 25 },
-  //   { year: 2014, count: 22 },
-  //   { year: 2015, count: 30 },
-  //   { year: 2016, count: 28 },
-  // ];
-
+  const buttons = (e) => {
+    console.log(e.target.textContent) //  → what’s inside of button
+    if (item.includes(e.target.textContent)) {
+        setErrorMsg('choose another item')
+    } else {
+        setItem([...item, e.target.textContent]);
+    };
+  } 
+      
   return (
     <>
       <Head>
@@ -56,16 +64,16 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
      
-      <Currency/>
+      <Currency test={test} setTest={setTest}/>
+{/* 
+      <Form buttons={buttons} click={clicked}/>
+      {errorMsg!== '' && <h6> { errorMsg }</h6>}
+      {value.length > 0  && <div>
+	      <Pie data={data}/>
+      </div>
+      } */}
 
-      {/* <button
-        onClick = {makeChart}
-        style={{width: '200px', height: '50px'}}
-      >make chart</button> */}
-
-      {/* <div>{url}</div> */}
-
-
+      {/* <Time test={test} setTest={setTest}/> */}
 
       </main>
     </>
@@ -73,23 +81,3 @@ export default function Home() {
 }
 
 
-// export async function getStaticProps() {
-//   const QuickChart = require('quickchart-js');
-
-//   const myChart = new QuickChart();
-
-//   myChart.setConfig({
-//     type:"bar",
-//     data:{ 
-//       labels: ['Hello world', 'Foo bar'], 
-//       datasets: [{ label: 'Foo', data: [1, 2] }]
-//     }
-//   })
-
-//   console.log(myChart.getUrl())
-//   return {
-//     props: {
-//       myChart
-//     }
-//   }
-// }

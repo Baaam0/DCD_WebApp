@@ -30,5 +30,9 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 - Exchange-rate: https://www.exchangerate-api.com/
 
+- Word-time: https://ipgeolocation.io/documentation/timezone-api.html
 
 
+## Data used
+
+- Kaggle: Bigmac price (https://www.kaggle.com/datasets/vittoriogiatti/bigmacprice)
