@@ -21,6 +21,9 @@ const [item, setItem] = useState([]);
 const [value, setValue] = useState([]);
 const [test, setTest] = useState('');
 
+const [con1, setCon1] = useState('');
+const [con2, setCon2] = useState('');
+
 useEffect(() => {
   console.log(item)
     const data = {
@@ -64,7 +67,7 @@ useEffect(() => {
       </Head>
       <main className={styles.main}>
      
-      <Currency test={test} setTest={setTest}/>
+      <Currency test={test} setTest={setTest} con1={con1} con2={con2} setCon1={setCon1} setCon2={setCon2}/>
 {/* 
       <Form buttons={buttons} click={clicked}/>
       {errorMsg!== '' && <h6> { errorMsg }</h6>}

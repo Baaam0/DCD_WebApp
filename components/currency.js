@@ -23,6 +23,7 @@ const value = {
 };
 
 export default function Currency(props) {
+  const { con1, con2, setCon1, setCon2 } = props;
 
   const array = Object.entries(value);
 
@@ -30,8 +31,7 @@ export default function Currency(props) {
     return <option value = {key}>{`${value} (${key})`}</option>
   })
 
-  const [con1, setCon1] = useState('');
-  const [con2, setCon2] = useState('');
+
   const [amount, setAmount] = useState();
   const [show, setShow] = useState();
   const [time, setTime] = useState();
@@ -55,8 +55,25 @@ export default function Currency(props) {
         console.log(err);
       })
 
-      setTime(await getTime(con1));
-      setTime2(await getTime(con2));
+      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[con1]}`)
+      .then((response) => {
+        setTime(response.data.date_time_txt);
+        console.log(response.data.date_time_txt);
+        console.log(response)
+      }).catch(err => {
+        console.log(err);
+      })
+
+      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[con2]}`)
+      .then((response) => {
+        setTime2(response.data.date_time_txt);
+        console.log(response.data.date_time_txt);
+      }).catch(err => {
+        console.log(err);
+      })
+
+      // setTime(await getTime(con1));
+      // setTime2(await getTime(con2));
 
   }
 
