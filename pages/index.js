@@ -46,6 +46,7 @@ useEffect(() => {
       setErrorMsg('')
       convertCurrency(e.target[0].value)  //  → pur that value into currency function
     }
+
   }
 
   const buttons = (e) => {
@@ -56,6 +57,7 @@ useEffect(() => {
         setItem([...item, e.target.textContent]);
     };
   } 
+
       
   return (
     <>
@@ -68,6 +70,9 @@ useEffect(() => {
       <main className={styles.main}>
      
       <Currency test={test} setTest={setTest} con1={con1} con2={con2} setCon1={setCon1} setCon2={setCon2}/>
+
+      <div>{con1}</div>
+      <div>{con2}</div>
 {/* 
       <Form buttons={buttons} click={clicked}/>
       {errorMsg!== '' && <h6> { errorMsg }</h6>}

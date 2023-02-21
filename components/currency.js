@@ -77,18 +77,18 @@ export default function Currency(props) {
 
   }
 
-  const getTime = async(country) => {
-    try {
-      console.log(value[country]);
-      let data = await axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[country]}`);
-      if(data){
-        console.log(data);
-        return data.data.date_time_txt;
-      }
-    }catch(err){
-      console.log(err);
-    }
-  }
+  // const getTime = async(country) => {
+  //   try {
+  //     console.log(value[country]);
+  //     let data = await axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[country]}`);
+  //     if(data){
+  //       console.log(data);
+  //       return data.data.date_time_txt;
+  //     }
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  // }
   
   // const changeTest = (value) => {
   //   props.setTest(value);
