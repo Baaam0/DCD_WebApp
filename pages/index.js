@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import Form from '@/components/form'
 import { Pie } from 'react-chartjs-2'
 import Time from '@/components/time'
+import record from '@/data/BigmacPrice.json'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -70,9 +71,34 @@ useEffect(() => {
       <main className={styles.main}>
      
       <Currency test={test} setTest={setTest} con1={con1} con2={con2} setCon1={setCon1} setCon2={setCon2}/>
-
+{/* 
       <div>{con1}</div>
-      <div>{con2}</div>
+      <div>{con2}</div> */}
+
+      {(() => {
+        if (con1 && con2) {
+          return (
+            <>
+              {record.filter (r => r.currency_code === con1 || r.currency_code === con2).map((r,i) => (
+                <div key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
+                  {r.currency_code === con1 && <div className={styles.con_h2}>{con1}</div>}
+                  {r.currency_code === con2 && <div className={styles.con_h2}>{con2}</div>}
+                  <div > Local Price: {r.local_price}</div>
+                  <div> Dollar Exchange: {r.dollar_ex}</div>
+                  <div> Dollar Price: {r.dollar_price}</div>
+                </div>
+              ))}
+            </>
+          )
+        } else {
+          return null;
+        }
+      })()}
+
+    
+
+
+    
 {/* 
       <Form buttons={buttons} click={clicked}/>
       {errorMsg!== '' && <h6> { errorMsg }</h6>}

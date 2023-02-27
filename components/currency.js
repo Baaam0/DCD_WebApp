@@ -96,32 +96,38 @@ export default function Currency(props) {
   
   return (
     <div>
+      <div className={styles.input_cnt}>
+      <input
+            value={amount}
+            type="number"
+            onChange={event => setAmount(event.target.value)}
+            placeholder="Enter Amount"
+            className={styles.input_box}
+          />
+          <input 
+            type="submit" 
+            onClick={changeCountry}
+            className={styles.submit_button}
+          />
 
-     <input
-          value={amount}
-          type="number"
-          onChange={event => setAmount(event.target.value)}
-          placeholder="Enter Amount"
-        />
-        <input 
-          type="submit" 
-          onClick={changeCountry}
-        />
+          {/* <input value={props.test} onChange={(e)=>{ changeTest(e.target.value) }} />
+          <div>{props.test}</div> */}
+      </div>
 
-        {/* <input value={props.test} onChange={(e)=>{ changeTest(e.target.value) }} />
-        <div>{props.test}</div> */}
-
+      <div className={styles.currency_cnt}>
+      <div className={styles.currency_box1}>
         <form>
-          <h1> Current currency : {con1}</h1>
-          <select value={con1} onChange={(e)=>{setCon1(e.target.value)}}>
+          <h1 className={styles.currency_h1}> Current currency: <br/>  {con1}</h1>
+          <select value={con1} onChange={(e)=>{setCon1(e.target.value)}} className={styles.select_button}>
             {renderItems}
-            
           </select>
         </form>
-
+      </div>
+      
+      <div className={styles.currency_box2}>
         <form>
-          <h1> Current currency : {con2}</h1>
-          <select value={con2} onChange={(e)=>{setCon2(e.target.value)}}>
+          <h1 className={styles.currency_h1}> Current currency : {con2}</h1>
+          <select value={con2} onChange={(e)=>{setCon2(e.target.value)}} className={styles.select_button}>
             {/* <option value = "USD"> USD</option>
             <option value = "EUR"> EUR</option>
             <option value = "CAD"> CAD</option>
@@ -129,16 +135,22 @@ export default function Currency(props) {
             {renderItems}
           </select>
         </form>
+      </div>
+      </div>
+
       <hr className={styles.hr}/>
       <div className={styles.show}>
         <div className={styles.amount}>
-          <div>Amount : {show} <span>{con2}</span></div>
+          <div className={styles.img}/>
+          <div>Amount : <br/> {show} <span>{con2}</span></div>
         </div>
+        
 
         <div className={styles.time}>
-          <div>Time of {value[con1]} : {time}</div>
-          <div>Time of {value[con2]} : {time2}</div>
+          <div className={styles.time_box1}>Time of {value[con1]} :  <br/> {time}</div>
+          <div className={styles.time_box2}>Time of {value[con2]} :  <br/> {time2}</div>
         </div>
+     
       </div>
       {/* <Chart info={show} name={name}/>
       <Category func={clicked}/> */}
