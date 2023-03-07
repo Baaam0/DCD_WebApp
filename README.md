@@ -24,7 +24,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Two API
 
-- Chart: https://quickchart.io/
+- [Chart](https://quickchart.io/) 
   
 - (Chart2: https://documentation.image-charts.com/)
 
