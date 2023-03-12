@@ -74,7 +74,7 @@ useEffect(() => {
 {/* 
       <div>{con1}</div>
       <div>{con2}</div> */}
-
+{/* 
       {(() => {
         if (con1 && con2) {
           return (
@@ -93,7 +93,27 @@ useEffect(() => {
         } else {
           return null;
         }
-      })()}
+      })()} */}
+      {record
+  .filter(r => r.currency_code === con1 || r.currency_code === con2)
+  .sort((a, b) => {
+    if (a.currency_code === con1) {
+      return -1;
+    } else if (b.currency_code === con1) {
+      return 1;
+    } else {
+      return 0;
+    }
+  })
+  .map((r,i) => (
+    <div key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
+      {r.currency_code === con1 && <div className={styles.con_h2}>{con1}</div>}
+      {r.currency_code === con2 && <div className={styles.con_h2}>{con2}</div>}
+      <div > Local Price: {r.local_price}</div>
+      <div> Dollar Exchange: {r.dollar_ex}</div>
+      <div> Dollar Price: {r.dollar_price}</div>
+    </div>
+))}
 
     
 
