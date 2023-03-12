@@ -31,4 +31,4 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Data used
 
-- Kaggle: [Bigmac price] (https://www.kaggle.com/datasets/vittoriogiatti/bigmacprice)
+- [Kaggle - Bigmac price] (https://www.kaggle.com/datasets/vittoriogiatti/bigmacprice)
