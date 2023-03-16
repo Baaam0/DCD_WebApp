@@ -2,10 +2,64 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import Currency from '@/components/currency'
+import axios from 'axios'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import Form from '@/components/form'
+import { Pie } from 'react-chartjs-2'
+import Time from '@/components/time'
+import record from '@/data/BigmacPrice.json'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+const [errorMsg, setErrorMsg] = useState()
+const [data, setData] = useState([]);
+const [item, setItem] = useState([]);
+const [value, setValue] = useState([]);
+const [test, setTest] = useState('');
+
+const [con1, setCon1] = useState('');
+const [con2, setCon2] = useState('');
+
+useEffect(() => {
+  console.log(item)
+    const data = {
+    labels: item,
+    datasets: [{
+      label: 'items',
+      data: value,
+      backgroundColor: ['red', 'blue', 'green', 'yellow']
+    }]
+  }
+    setData(data)
+}, [item, value]);
+
+  const clicked = (e) => {
+    e.preventDefault();   // → doesn’t need to refresh 
+    console.log(e.target[0].value)   // → first input ‘s value
+    if(item.length == value.length) {
+      setErrorMsg('choose an item');
+    } else {
+      setErrorMsg('')
+      convertCurrency(e.target[0].value)  //  → pur that value into currency function
+    }
+
+  }
+
+  const buttons = (e) => {
+    console.log(e.target.textContent) //  → what’s inside of button
+    if (item.includes(e.target.textContent)) {
+        setErrorMsg('choose another item')
+    } else {
+        setItem([...item, e.target.textContent]);
+    };
+  } 
+
+      
   return (
     <>
       <Head>
@@ -15,109 +69,69 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
+     
+      <Currency test={test} setTest={setTest} con1={con1} con2={con2} setCon1={setCon1} setCon2={setCon2}/>
+{/* 
+      <div>{con1}</div>
+      <div>{con2}</div> */}
+{/* 
+      {(() => {
+        if (con1 && con2) {
+          return (
+            <>
+              {record.filter (r => r.currency_code === con1 || r.currency_code === con2).map((r,i) => (
+                <div key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
+                  {r.currency_code === con1 && <div className={styles.con_h2}>{con1}</div>}
+                  {r.currency_code === con2 && <div className={styles.con_h2}>{con2}</div>}
+                  <div > Local Price: {r.local_price}</div>
+                  <div> Dollar Exchange: {r.dollar_ex}</div>
+                  <div> Dollar Price: {r.dollar_price}</div>
+                </div>
+              ))}
+            </>
+          )
+        } else {
+          return null;
+        }
+      })()} */}
+      {record
+  .filter(r => r.currency_code === con1 || r.currency_code === con2)
+  .sort((a, b) => {
+    if (a.currency_code === con1) {
+      return -1;
+    } else if (b.currency_code === con1) {
+      return 1;
+    } else {
+      return 0;
+    }
+  })
+  .map((r,i) => (
+    <div key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
+      {r.currency_code === con1 && <div className={styles.con_h2}>{con1}</div>}
+      {r.currency_code === con2 && <div className={styles.con_h2}>{con2}</div>}
+      <div > Local Price: {r.local_price}</div>
+      <div> Dollar Exchange: {r.dollar_ex}</div>
+      <div> Dollar Price: {r.dollar_price}</div>
+    </div>
+))}
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
+    
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
+    
+{/* 
+      <Form buttons={buttons} click={clicked}/>
+      {errorMsg!== '' && <h6> { errorMsg }</h6>}
+      {value.length > 0  && <div>
+	      <Pie data={data}/>
+      </div>
+      } */}
 
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
+      {/* <Time test={test} setTest={setTest}/> */}
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
       </main>
     </>
   )
 }
+
+
