@@ -44,6 +44,9 @@ export default function Currency(props) {
   // }
 
   const changeCountry = async() => {
+  
+    
+       
       const url1 = `https://api.exchangerate.host/convert?from=${con1}&to=${con2}&amount=${amount}`;
 
       axios.get(url1)
@@ -115,25 +118,33 @@ export default function Currency(props) {
       </div>
 
       <div className={styles.currency_cnt}>
-      <div className={styles.currency_box1}>
+      <div className={styles.currency_box1} id="currency-box">
         <form>
           <h1 className={styles.currency_h1}> Current currency: <br/>  {con1}</h1>
-          <select value={con1} onChange={(e)=>{setCon1(e.target.value)}} className={styles.select_button}>
+          <select value={con1} onChange={(e)=>{if(e.target.value === con2) {alert("Please select two different currencies")} else {setCon1(e.target.value)}}} className={styles.select_button}>
+          {renderItems}
+        </select>
+          {/* <select value={con1} onChange={(e)=>{setCon1(e.target.value)}} className={styles.select_button}>
             {renderItems}
-          </select>
+          </select> */}
         </form>
       </div>
       
       <div className={styles.currency_box2}>
         <form>
           <h1 className={styles.currency_h1}> Current currency : {con2}</h1>
-          <select value={con2} onChange={(e)=>{setCon2(e.target.value)}} className={styles.select_button}>
+          
+          <select value={con2} onChange={(e)=>{if(e.target.value === con1) {alert("Please select two different currencies")} else {setCon2(e.target.value)}}} className={styles.select_button}>
+          {renderItems}
+        </select>
+          
+          {/* <select value={con2} onChange={(e)=>{setCon2(e.target.value)}} className={styles.select_button}> */}
             {/* <option value = "USD"> USD</option>
             <option value = "EUR"> EUR</option>
             <option value = "CAD"> CAD</option>
             <option value = "KRW"> KRW</option> */}
-            {renderItems}
-          </select>
+            {/* {renderItems}
+          </select> */}
         </form>
       </div>
       </div>
@@ -141,8 +152,10 @@ export default function Currency(props) {
       <hr className={styles.hr}/>
       <div className={styles.show}>
         <div className={styles.amount}>
-          <div className={styles.img}/>
+
+          <div className={styles.money_img} id="money-bag"/>
           <div>Amount : <br/> {parseFloat(show).toFixed(2)} <span>{con2}</span></div>
+
         </div>
         
 
