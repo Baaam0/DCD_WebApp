@@ -152,8 +152,10 @@ export default function Currency(props) {
       <hr className={styles.hr}/>
       <div className={styles.show}>
         <div className={styles.amount}>
+
           <div className={styles.money_img} id="money-bag"/>
-          <div>Amount : <br/> {show} <span>{con2}</span></div>
+          <div>Amount : <br/> {parseFloat(show).toFixed(2)} <span>{con2}</span></div>
+
         </div>
         
 
