@@ -88,10 +88,10 @@ useEffect(() => {
     }
   })
   .map((r,i) => (
-    <div key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
+    <div id="BicMac" key={i} className={`${styles.con_cnt} ${r.currency_code === con1 ? styles.con1 : styles.con2}`}>
       {r.currency_code === con1 && <div className={styles.con_h2}>{con1}</div>}
       {r.currency_code === con2 && <div className={styles.con_h2}>{con2}</div>}  
-      <div > Local Price: &nbsp; <span style={{color: '#fcc219',fontWeight:'bold'}}>{r.local_price}</span></div>
+      <div> Local Price: &nbsp; <span style={{color: '#fcc219',fontWeight:'bold'}}>{r.local_price}</span></div>
       <div> Dollar Exchange:&nbsp; <span style={{color: '#fcc219',fontWeight:'bold'}}> {r.dollar_ex} </span></div>
       <div> Dollar Price: &nbsp; <span style={{color: '#fcc219',fontWeight:'bold'}}> {r.dollar_price} </span></div>
       <div className={styles.symbol}  style={r.currency_code === con2 ? {right: '210px', position: 'absolute',fontSize:'80px'} : {}}>{r.dollar_symbol}</div>

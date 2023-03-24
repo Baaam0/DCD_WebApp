@@ -120,8 +120,8 @@ export default function Currency(props) {
       <div className={styles.currency_cnt}>
       <div className={styles.currency_box1} id="currency-box">
         <form>
-          <h1 className={styles.currency_h1}> Current currency: <br/>  {con1}</h1>
-          <select value={con1} onChange={(e)=>{if(e.target.value === con2) {alert("Please select two different currencies")} else {setCon1(e.target.value)}}} className={styles.select_button}>
+          <h1 className={styles.currency_h1}> Current Currency: <br/>  {con1}</h1>
+          <select value={con1} name="currency-from" onChange={(e)=>{if(e.target.value === con2) {alert("Please select two different currencies")} else {setCon1(e.target.value)}}} className={styles.select_button}>
           {renderItems}
         </select>
           {/* <select value={con1} onChange={(e)=>{setCon1(e.target.value)}} className={styles.select_button}>
@@ -132,9 +132,9 @@ export default function Currency(props) {
       
       <div className={styles.currency_box2}>
         <form>
-          <h1 className={styles.currency_h1}> Current currency : {con2}</h1>
+          <h1 className={styles.currency_h1}> Target Currency : {con2}</h1>
           
-          <select value={con2} onChange={(e)=>{if(e.target.value === con1) {alert("Please select two different currencies")} else {setCon2(e.target.value)}}} className={styles.select_button}>
+          <select value={con2} name="currency-to" onChange={(e)=>{if(e.target.value === con1) {alert("Please select two different currencies")} else {setCon2(e.target.value)}}} className={styles.select_button}>
           {renderItems}
         </select>
           
@@ -151,7 +151,7 @@ export default function Currency(props) {
 
       <hr className={styles.hr}/>
       <div className={styles.show}>
-        <div className={styles.amount}>
+        <div className={styles.amount} id="amount">
 
           <div className={styles.money_img} id="money-bag"/>
           <div>Amount : <br/> {parseFloat(show).toFixed(2)} <span>{con2}</span></div>
@@ -160,8 +160,8 @@ export default function Currency(props) {
         
 
         <div className={styles.time}>
-          <div className={styles.time_box1}>Time of {value[con1]} :  <br/> {time}</div>
-          <div className={styles.time_box2}>Time of {value[con2]} :  <br/> {time2}</div>
+          <div id="time-from" className={styles.time_box1}>Time of {value[con1]} :  <br/> {time}</div>
+          <div id="time-to" className={styles.time_box2}>Time of {value[con2]} :  <br/> {time2}</div>
         </div>
      
       </div>
