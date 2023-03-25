@@ -40,6 +40,85 @@ test.describe('Button test', () => {
     });
   });
 
+  test.describe('Currency option list test', () => {
+    test('Should be 14 options for the currency', async ({ page }) => {
+      await page.goto(homePage);
+      const selectElement = await page.$('select')
+      const options = await selectElement.$$('option');
+      expect(options.length).toBe(14); 
+    });
+  });
+
+  test.describe('Currency function test', () => {
+    test('Submit button should return target currency value', async ({ page }) => {
+      await page.goto(homePage);
+      await page.fill('input[type="number"]', '100');
+
+      await page.waitForSelector('select[name="currency-from"]');
+      await page.selectOption('select[name="currency-from"]', { value: 'CAD' });
+      await page.waitForSelector('select[name="currency-to"]');
+      await page.selectOption('select[name="currency-to"]', { value: 'EUR' });
+
+      await page.click('input[type="submit"]');
+      await expect(page.locator('#amount')).toContainText('EUR');
+    });
+  });
+
+  test.describe('Alert test', () => { 
+    test('If user pick the same currency, there should be alert', async ({ page }) => {
+      await page.goto(homePage);
+      page.on('dialog', async dialog => { 
+        expect(dialog.type()).toContain('alert');
+
+        expect(dialog.message()).toContain('Please select two different currencies');
+        await dialog.dismiss();
+      });
+      await page.fill('input[type="number"]', '100');
+      await page.waitForSelector('select[name="currency-from"]');
+      await page.selectOption('select[name="currency-from"]', { value: 'CAD' });
+      await page.waitForSelector('select[name="currency-to"]');
+      await page.selectOption('select[name="currency-to"]', { value: 'CAD' });
+    });
+  });
+
+  test.describe('Country test for currency and time', () => {
+    test('Country for currency and time should match', async ({ page }) => {
+      await page.goto(homePage);
+      await page.fill('input[type="number"]', '100');
+      await page.waitForSelector('select[name="currency-from"]');
+      await page.selectOption('select[name="currency-from"]', { value: 'CAD' });
+      await page.waitForSelector('select[name="currency-to"]');
+      await page.selectOption('select[name="currency-to"]', { value: 'EUR' });
+      await page.click('input[type="submit"]');
+
+      const timeFrom = await page.$eval('#time-from', el => el.textContent);
+      expect(timeFrom).toContain('Canada');
+
+      const timeTo = await page.$eval('#time-to', el => el.textContent);
+      expect(timeTo).toContain('Europe');
+    });
+  });
+
+  test.describe('BicMac price information list', () => {
+    test('BicMac price information should have 3 types of info', async ({ page }) => {
+      await page.goto(homePage);
+      await page.goto(homePage);
+      await page.fill('input[type="number"]', '100');
+      await page.waitForSelector('select[name="currency-from"]');
+      await page.selectOption('select[name="currency-from"]', { value: 'CAD' });
+      await page.waitForSelector('select[name="currency-to"]');
+      await page.selectOption('select[name="currency-to"]', { value: 'EUR' });
+      await page.click('input[type="submit"]');
+
+      const BicMacPriceInfo = await page.$('#BicMac');
+      const content = await BicMacPriceInfo.textContent();
+      expect(content).toContain('Local Price');
+      expect(content).toContain('Dollar Exchange');
+      expect(content).toContain('Dollar Price');
+    });
+  });
+
+
 
 test.use({
   browserName:'chromium',
