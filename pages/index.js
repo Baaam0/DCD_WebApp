@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Currency from '@/components/currency'
 import { useState } from 'react'
@@ -8,49 +7,10 @@ import record from '@/data/BigmacPrice.json'
 
 export default function Home() {
 
-const [errorMsg, setErrorMsg] = useState()
-const [data, setData] = useState([]);
-const [item, setItem] = useState([]);
-const [value, setValue] = useState([]);
-const [test, setTest] = useState('');
 
+const [test, setTest] = useState('');
 const [con1, setCon1] = useState('');
 const [con2, setCon2] = useState('');
-
-useEffect(() => {
-  console.log(item)
-    const data = {
-    labels: item,
-    datasets: [{
-      label: 'items',
-      data: value,
-      backgroundColor: ['red', 'blue', 'green', 'yellow']
-    }]
-  }
-    setData(data)
-}, [item, value]);
-
-  const clicked = (e) => {
-    e.preventDefault();   // → doesn’t need to refresh 
-    console.log(e.target[0].value)   // → first input ‘s value
-    if(item.length == value.length) {
-      setErrorMsg('choose an item');
-    } else {
-      setErrorMsg('')
-      convertCurrency(e.target[0].value)  //  → pur that value into currency function
-    }
-
-  }
-
-  const buttons = (e) => {
-    console.log(e.target.textContent) //  → what’s inside of button
-    if (item.includes(e.target.textContent)) {
-        setErrorMsg('choose another item')
-    } else {
-        setItem([...item, e.target.textContent]);
-    };
-  } 
-
       
   return (
     <>

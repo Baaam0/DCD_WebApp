@@ -29,21 +29,18 @@ export default function Currency(props) {
     return <option value = {key}>{`${value} (${key})`}</option>
   })
 
-
   const [amount, setAmount] = useState();
   const [show, setShow] = useState();
   const [time, setTime] = useState();
   const [time2, setTime2] = useState();
-  // const [name, setName] = useState();
 
-  // const clicked = () => {
-  //   console.log("hello")
-  //   setName("John")
-  // }
 
   const changeCountry = async() => {
-  
+    
+    
       const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+      // Exchange Rate API
       const url1 = `https://api.exchangerate.host/convert?from=${con1}&to=${con2}&amount=${amount}`;
 
       axios.get(url1)
@@ -54,6 +51,8 @@ export default function Currency(props) {
       }).catch(err => {
         console.log(err);
       })
+
+      // Time Zone API
 
       axios.get(`https://api.ipgeolocation.io/timezone?apiKey=${apiKey}&location=${value[con1]}`)
       .then((response) => {
@@ -71,31 +70,12 @@ export default function Currency(props) {
       }).catch(err => {
         console.log(err);
       })
-
-      // setTime(await getTime(con1));
-      // setTime2(await getTime(con2));
-
   }
 
-  // const getTime = async(country) => {
-  //   try {
-  //     console.log(value[country]);
-  //     let data = await axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[country]}`);
-  //     if(data){
-  //       console.log(data);
-  //       return data.data.date_time_txt;
-  //     }
-  //   }catch(err){
-  //     console.log(err);
-  //   }
-  // }
-  
-  // const changeTest = (value) => {
-  //   props.setTest(value);
-  // }
   
   return (
     <div>
+  {/* Input for exchange amount */}
       <div className={styles.input_cnt}>
       <input
             value={amount}
@@ -109,24 +89,21 @@ export default function Currency(props) {
             onClick={changeCountry}
             className={styles.submit_button}
           />
-
-          {/* <input value={props.test} onChange={(e)=>{ changeTest(e.target.value) }} />
-          <div>{props.test}</div> */}
       </div>
-
       <div className={styles.currency_cnt}>
+
+  {/* Pick first currency */}
       <div className={styles.currency_box1} id="currency-box">
         <form>
           <h1 className={styles.currency_h1}> Current Currency: <br/>  {con1}</h1>
           <select value={con1} name="currency-from" onChange={(e)=>{if(e.target.value === con2) {alert("Please select two different currencies")} else {setCon1(e.target.value)}}} className={styles.select_button}>
           {renderItems}
         </select>
-          {/* <select value={con1} onChange={(e)=>{setCon1(e.target.value)}} className={styles.select_button}>
-            {renderItems}
-          </select> */}
+          
         </form>
       </div>
       
+  {/* pick second currency */}
       <div className={styles.currency_box2}>
         <form>
           <h1 className={styles.currency_h1}> Target Currency : {con2}</h1>
@@ -134,19 +111,14 @@ export default function Currency(props) {
           <select value={con2} name="currency-to" onChange={(e)=>{if(e.target.value === con1) {alert("Please select two different currencies")} else {setCon2(e.target.value)}}} className={styles.select_button}>
           {renderItems}
         </select>
-          
-          {/* <select value={con2} onChange={(e)=>{setCon2(e.target.value)}} className={styles.select_button}> */}
-            {/* <option value = "USD"> USD</option>
-            <option value = "EUR"> EUR</option>
-            <option value = "CAD"> CAD</option>
-            <option value = "KRW"> KRW</option> */}
-            {/* {renderItems}
-          </select> */}
+
         </form>
       </div>
       </div>
 
       <hr className={styles.hr}/>
+
+  {/* Showing Exchanged Amount */}
       <div className={styles.show}>
         <div className={styles.amount} id="amount">
 
@@ -155,15 +127,13 @@ export default function Currency(props) {
           
         </div>
         
-
+  {/* Showing Time-Zone */}
         <div className={styles.time}>
           <div id="time-from" className={styles.time_box1}>Time of {value[con1]} :  <br/> {time}</div>
           <div id="time-to" className={styles.time_box2}>Time of {value[con2]} :  <br/> {time2}</div>
         </div>
      
       </div>
-      {/* <Chart info={show} name={name}/>
-      <Category func={clicked}/> */}
       <hr className={styles.hr}/>
     </div>
 
