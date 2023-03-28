@@ -5,7 +5,7 @@ With our app, users can easily enter the amount they wish to convert in a specif
 
 In addition, our application also provides the Big Mac price :hamburger: of the selected currencies, enabling us to have a better understanding of the cost of living in different countries.
 
-[my-currency app](my-currency-app.vercel.app)
+[my-currency-app](https://my-currency-app.vercel.app/)
 
 ## Language & Tools :hammer:
 <p>
