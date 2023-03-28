@@ -35,7 +35,7 @@ In addition, our application also provides the Big Mac price :hamburger: of the 
 
 ## Two API :bulb:
 
-- [Exchange-rate](https://www.exchangerate-api.com/)
+- [Exchange-rate](https://exchangerate.host/#/#docs)
 
 - [Word-time](https://ipgeolocation.io/documentation/timezone-api.html)
 
