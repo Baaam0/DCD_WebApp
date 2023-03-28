@@ -1,8 +1,6 @@
 import axios from "axios"
 import React from "react"
 import { useState } from "react"
-import Chart from "./chart"
-import Category from "./category"
 import styles from '@/styles/Home.module.css'
 
 const value = {
@@ -154,7 +152,7 @@ export default function Currency(props) {
 
           <div className={styles.money_img} id="money-bag"/>
           <div>Amount : <br/> {parseFloat(show).toFixed(2)} <span>{con2}</span></div>
-
+          
         </div>
         
 
@@ -166,6 +164,7 @@ export default function Currency(props) {
       </div>
       {/* <Chart info={show} name={name}/>
       <Category func={clicked}/> */}
+      <hr className={styles.hr}/>
     </div>
 
   )
