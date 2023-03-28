@@ -45,8 +45,7 @@ export default function Currency(props) {
 
   const changeCountry = async() => {
   
-    
-       
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
       const url1 = `https://api.exchangerate.host/convert?from=${con1}&to=${con2}&amount=${amount}`;
 
       axios.get(url1)
@@ -58,7 +57,7 @@ export default function Currency(props) {
         console.log(err);
       })
 
-      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[con1]}`)
+      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=${apiKey}&location=${value[con1]}`)
       .then((response) => {
         setTime(response.data.date_time_txt);
         console.log(response.data.date_time_txt);
@@ -67,7 +66,7 @@ export default function Currency(props) {
         console.log(err);
       })
 
-      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=38a893a1862346fcb127ba8b44e8be15&location=${value[con2]}`)
+      axios.get(`https://api.ipgeolocation.io/timezone?apiKey=${apiKey}&location=${value[con2]}`)
       .then((response) => {
         setTime2(response.data.date_time_txt);
         console.log(response.data.date_time_txt);
